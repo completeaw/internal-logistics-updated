@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} Warehouse Receipt Details {% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item">
+                <a href="{% url 'logistics:master_waybill_list' %}">
+                    <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'logistics:waybill_summary' waybill.master_waybill.id %}">Master Waybill</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ waybill.waybill_number }}</li>
+        </ol>
+    </nav>
+    
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h1 class="h4">Warehouse Receipt Details</h1>
+            <p class="mb-0">Waybill: {{ waybill.waybill_number }}</p>
+            <p class="mb-0">Receiver: {{ waybill.receiver }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-0 rounded-start">Warehouse Receipt</th>
+                        <th class="border-0">WHR Shipper</th>
+                        <th class="border-0">Packages</th>
+                        <th class="border-0">Weight (kg)</th>
+                        <th class="border-0">Volume (ft³)</th>
+                        <th class="border-0 rounded-end">Tracking Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for receipt in warehouse_receipts %}
+                    <tr>
+                        <td>{{ receipt.warehouse_receipt_number }}</td>
+                        <td>{{ receipt.whr_shipper }}</td>
+                        <td>{{ receipt.packages }}</td>
+                        <td>{{ receipt.weight }}</td>
+                        <td>{{ receipt.volume }}</td>
+                        <td>{{ receipt.tracking_number }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No warehouse receipts found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="bg-light">
+                        <td colspan="2"><strong>Totals</strong></td>
+                        <td><strong>{{ totals.packages__sum }}</strong></td>
+                        <td><strong>{{ totals.weight__sum }}</strong></td>
+                        <td><strong>{{ totals.volume__sum }}</strong></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_javascript %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('.table').DataTable({
+            "pageLength": 25,
+            "footerCallback": function(row, data, start, end, display) {
+                var api = this.api();
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                };
+
+                // Total over all pages
+                packages = api.column(2).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+                weight = api.column(3).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+                volume = api.column(4).data().reduce(function(a, b) { return intVal(a) + intVal(b); }, 0);
+
+                // Update footer
+                $(api.column(2).footer()).html('<strong>' + packages + '</strong>');
+                $(api.column(3).footer()).html('<strong>' + weight.toFixed(2) + '</strong>');
+                $(api.column(4).footer()).html('<strong>' + volume.toFixed(2) + '</strong>');
+            }
+        });
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} Master Waybill List {% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div class="d-flex w-100 flex-wrap">
+        <div class="d-flex align-items-center">
+            <h1 class="h4 mb-0 me-3">Master Waybill List</h1>
+            {% if can_upload %}
+            <a href="{% url 'logistics:upload_excel' %}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+                <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Upload Excel
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <table class="table table-centered table-nowrap mb-0">
+        <thead class="thead-light">
+            <tr>
+                <th>Master Waybill Number</th>
+                <th>Container Number</th>
+                <th>Total Packages</th>
+                <th>Total Weight (kg)</th>
+                <th>Total Volume (ft³)</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for master_waybill in master_waybills %}
+            <tr>
+                <td>{{ master_waybill.master_waybill_number }}</td>
+                <td>{{ master_waybill.container_number }}</td>
+                <td>{{ master_waybill.total_packages }}</td>
+                <td>{{ master_waybill.total_weight }}</td>
+                <td>{{ master_waybill.total_volume }}</td>
+                <td>{{ master_waybill.created_at|date:"Y-m-d H:i:s" }}</td>
+                <td>
+                    <a href="{% url 'logistics:waybill_summary' master_waybill.id %}" class="btn btn-sm btn-gray-800">View Details</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">No master waybills found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block extra_javascript %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('.table').DataTable({
+            "order": [[5, "desc"]],
+            "pageLength": 25
+        });
+    });
+</script>
+{% endblock %} 

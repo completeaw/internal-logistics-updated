@@ -1,0 +1,905 @@
+/* Table Animations and Responsive Styles */
+.table-responsive {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+/* Modern DataTable Wrapper */
+.modern-datatable {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem !important;
+    margin: 1rem 0;
+}
+
+/* Search Box Styling */
+.dataTables_filter {
+    margin-bottom: 1.5rem;
+}
+
+.dataTables_filter label {
+    width: 100%;
+    margin: 0;
+}
+
+.dataTables_filter input {
+    width: 300px !important;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    color: #1e293b;
+    transition: all 0.2s ease;
+}
+
+.dataTables_filter input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* Table Base Styling */
+.table {
+    width: 100% !important;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Header Styling */
+.table thead th {
+    padding: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    color: #64748b;
+    white-space: nowrap;
+}
+
+/* Row Styling */
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+    color: #334155;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Selected Row Styling */
+.table tbody tr.selected {
+    background-color: rgba(79, 70, 229, 0.05) !important;
+}
+
+.table tbody tr.selected td {
+    color: #4f46e5;
+}
+
+/* Bulk Actions Bar */
+.bulk-actions {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: slideDown 0.3s ease-out;
+}
+
+.bulk-actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.bulk-actions .btn-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    border: none;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.1);
+}
+
+.bulk-actions .btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
+}
+
+/* Export Buttons */
+.dt-buttons {
+    margin-bottom: 1rem;
+}
+
+.dt-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.dt-button-collection {
+    padding: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.dt-button-collection .dt-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 4px;
+}
+
+/* Pagination */
+.dataTables_paginate {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.25rem;
+}
+
+.paginate_button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: #64748b;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.paginate_button.current {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: white;
+    font-weight: 500;
+}
+
+.paginate_button:not(.current):hover {
+    background-color: #f1f5f9;
+    color: #4f46e5;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(79, 70, 229, 0.1);
+    border-radius: 50%;
+    border-top-color: #4f46e5;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Empty State */
+.dataTables_empty {
+    padding: 3rem !important;
+    text-align: center;
+    color: #94a3b8;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .table-responsive {
+        padding: 1rem;
+    }
+
+    .dataTables_filter input {
+        width: 100% !important;
+    }
+
+    .bulk-actions {
+        flex-direction: column;
+    }
+
+    .bulk-actions .btn {
+        width: 100%;
+    }
+
+    .dt-buttons {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .dt-button {
+        width: 100%;
+    }
+
+    .paginate_button {
+        padding: 0.375rem 0.5rem;
+    }
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Table Animations and Responsive Styles */
+.table-responsive {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+    position: relative; /* Added for loading overlay */
+}
+
+/* Search Box Styling */
+.dataTables_filter {
+    margin-bottom: 2rem;
+}
+
+.dataTables_filter input {
+    width: 300px;
+    padding: 12px 16px;
+    font-size: 0.875rem;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    color: #495057;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.dataTables_filter input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    transform: translateY(-1px);
+}
+
+.dataTables_filter input::placeholder {
+    color: #94a3b8;
+}
+
+/* Table Base Styling */
+.table {
+    width: 100% !important;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #1e293b;
+}
+
+/* Modern Header Styling */
+.table thead th {
+    padding: 16px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #64748b;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+}
+
+.table thead th:hover {
+    color: #4f46e5;
+    background-color: #f1f5f9;
+}
+
+/* Row Styling with Modern Animation */
+.table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #e2e8f0;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.table td {
+    padding: 16px 12px;
+    font-size: 0.875rem;
+    color: #334155;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+}
+
+/* Warehouse Receipt Column */
+.table td:first-child {
+    font-weight: 600;
+    color: #4f46e5;
+    font-size: 0.875rem;
+}
+
+/* HBOL Column */
+.table td:nth-child(2) {
+    font-family: 'Roboto Mono', monospace;
+    color: #64748b;
+}
+
+/* Company Name Column */
+.table td:nth-child(3) {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+/* Package Type Column */
+.table td:nth-child(4) {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+}
+
+/* Weight and Volume Columns */
+.table td:nth-child(5),
+.table td:nth-child(6) {
+    font-family: 'Roboto Mono', monospace;
+    text-align: right;
+    color: #475569;
+}
+
+/* Tracking Number Column */
+.table td:nth-child(7) {
+    font-family: 'Roboto Mono', monospace;
+    color: #64748b;
+    font-size: 0.8125rem;
+}
+
+/* Date Column */
+.table td:last-child {
+    color: #64748b;
+    font-size: 0.8125rem;
+}
+
+/* Modern Pagination */
+.dataTables_paginate {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.dataTables_paginate .paginate_button {
+    padding: 8px 14px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #64748b;
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: white !important;
+    border: none;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.dataTables_paginate .paginate_button:hover:not(.current) {
+    background-color: #f1f5f9;
+    border-color: #4f46e5;
+    color: #4f46e5 !important;
+    transform: translateY(-1px);
+}
+
+/* Info Display */
+.dataTables_info {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* Loading State */
+.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    font-size: 0.875rem;
+    color: #4f46e5;
+    backdrop-filter: blur(4px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .dataTables_filter input {
+        width: 200px;
+    }
+    
+    .table td,
+    .table th {
+        padding: 8px 6px;
+    }
+}
+
+/* Loading Animation */
+.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.875rem;
+    color: #495057;
+}
+
+/* Checkbox Styling */
+.table input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.table input[type="checkbox"]:checked {
+    background-color: #5e72e4;
+    border-color: #5e72e4;
+}
+
+/* Modern Pagination */
+.dataTables_paginate {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dataTables_paginate .paginate_button {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #344767;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background: linear-gradient(90deg, #5e72e4 0%, #825ee4 100%);
+    color: #ffffff !important;
+    border: none;
+    box-shadow: 0 4px 10px rgba(94, 114, 228, 0.3);
+}
+
+.dataTables_paginate .paginate_button:hover:not(.current) {
+    background: #f8f9fa;
+    border-color: #5e72e4;
+    color: #5e72e4 !important;
+}
+
+/* Status Colors */
+.status-active {
+    color: #2dce89;
+    background: rgba(45, 206, 137, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #fb6340;
+    background: rgba(251, 99, 64, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* Column Specific Styling */
+.table td:nth-child(2), /* ID */
+.table td:nth-child(3) /* HBOL */ {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8125rem;
+}
+
+.table td:nth-child(6), /* Weight */
+.table td:nth-child(7) /* Volume */ {
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Empty State */
+.dataTables_empty {
+    padding: 48px !important;
+    text-align: center;
+    color: #8392ab;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .table-responsive {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .table td,
+    .table th {
+        padding: 10px 8px;
+    }
+
+    .dataTables_filter input {
+        width: 200px;
+    }
+}
+
+/* Loading State Animation */
+.table-loading {
+    position: relative;
+}
+
+.table-loading:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+/* Checkbox column */
+.table th:first-child,
+.table td:first-child {
+    padding-left: 16px;
+    width: 25px;
+}
+
+/* ID column */
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    width: 90px;
+}
+
+/* HBOL column */
+.table th:nth-child(3),
+.table td:nth-child(3) {
+    width: 90px;
+}
+
+/* Company name column */
+.table th:nth-child(4),
+.table td:nth-child(4) {
+    width: 200px;
+}
+
+/* Package type column */
+.table th:nth-child(5),
+.table td:nth-child(5) {
+    width: 90px;
+}
+
+/* Weight and Volume columns */
+.table th:nth-child(6),
+.table td:nth-child(6),
+.table th:nth-child(7),
+.table td:nth-child(7) {
+    width: 70px;
+    text-align: right;
+}
+
+/* Reference number column */
+.table th:nth-child(8),
+.table td:nth-child(8) {
+    width: 130px;
+}
+
+/* Date column */
+.table th:nth-child(9),
+.table td:nth-child(9) {
+    width: 120px;
+    padding-right: 16px;
+}
+
+/* Custom scrollbar for overflow cases */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* DataTables wrapper styling */
+.dataTables_wrapper {
+    padding: 0.5rem;
+}
+
+/* Pagination and length menu styling */
+.dataTables_length,
+.dataTables_filter {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+}
+
+.dataTables_length select {
+    min-width: 80px;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.dataTables_filter input {
+    min-width: 200px;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.dataTables_info,
+.dataTables_paginate {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+}
+
+/* Pagination buttons */
+.dataTables_paginate .paginate_button {
+    padding: 0.375rem 0.75rem;
+    margin: 0 0.125rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background-color: #5e72e4;
+    color: white !important;
+    border: none;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+    .table-responsive {
+        max-height: 60vh;
+    }
+    
+    .table td,
+    .table th {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .dataTables_filter input {
+        min-width: 150px;
+    }
+    
+    /* Stack the length and filter controls on mobile */
+    .dataTables_length,
+    .dataTables_filter {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(79, 70, 229, 0.1);
+    border-radius: 50%;
+    border-top-color: #4f46e5;
+    animation: spin 1s ease-in-out infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Export Buttons */
+.dt-buttons {
+    margin-bottom: 1rem;
+}
+
+.dt-button {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.1);
+}
+
+.dt-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+}
+
+.dt-button-collection {
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.dt-button-collection .dt-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: white;
+    color: #1e293b;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+.dt-button-collection .dt-button:hover {
+    background: #f8fafc;
+    color: #4f46e5;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Row Selection Styles */
+.table tbody tr.selected {
+    background-color: rgba(79, 70, 229, 0.05) !important;
+}
+
+.table tbody tr.selected td {
+    color: #4f46e5;
+}
+
+/* Bulk Actions */
+.bulk-actions {
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .table-responsive {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .bulk-actions {
+        flex-direction: column;
+        padding: 8px;
+    }
+
+    .bulk-actions .btn {
+        width: 100%;
+    }
+
+    .dt-buttons {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .dt-button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .dataTables_filter {
+        width: 100%;
+    }
+
+    .dataTables_filter input {
+        width: 100% !important;
+    }
+}
+
+/* Responsive Table Styles */
+@media (max-width: 1200px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table {
+        min-width: 1000px; /* Ensure table doesn't shrink too much */
+    }
+} 

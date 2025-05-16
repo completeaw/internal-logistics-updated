@@ -1,0 +1,36 @@
+/* Custom styles for the admin interface */
+.dashboard #content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#header {
+    background: #1a1c23;
+    color: #fff;
+}
+
+#branding h1 {
+    color: #fff;
+}
+
+#branding h1 a:link, #branding h1 a:visited {
+    color: #fff;
+}
+
+div.breadcrumbs {
+    background: #2e3338;
+}
+
+.module h2, .module caption {
+    background: #2e3338;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #1a1c23;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: #2e3338;
+} 

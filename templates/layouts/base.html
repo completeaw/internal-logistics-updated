@@ -1,0 +1,246 @@
+{% load static %}
+<!--
+=========================================================
+* Volt Pro - Premium Bootstrap 5 Dashboard
+=========================================================
+* Product Page: https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard
+* Copyright 2021 Themesberg (https://www.themesberg.com)
+* Designed and coded by https://themesberg.com
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal. Contact us if you want to remove it.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+  {% include 'includes/head.html' %}
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="{% static 'css/custom-layout.css' %}" rel="stylesheet">
+  <!-- DataTables CSS -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/select/1.7.0/css/select.bootstrap5.min.css" rel="stylesheet">
+  <link href="{% static 'assets/css/table-animations.css' %}" rel="stylesheet">
+  {% block extrastyle %}{% endblock extrastyle %}
+
+</head>
+
+  {% block nav %}
+    {% include 'includes/nav.html' %}
+  {% endblock nav %}
+  {% block sidebar %}
+    {% include 'includes/sidebar.html' %}
+  {% endblock sidebar %}
+  
+  <main class="content">
+
+    {% block navigation %}
+      {% include 'includes/navigation.html' %}
+    {% endblock navigation %}
+    {% block content %}{% endblock content %}
+    {% block footer %}
+      {% include 'includes/footer.html' %}
+    {% endblock footer %}
+    
+  </main>
+
+  {% include 'includes/scripts.html' %}
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  {% block extra_js %}
+  <script>
+    // Initialize DataTables with modern settings
+    $(document).ready(function() {
+        // Destroy existing DataTable instances first
+        $('.table').each(function() {
+            if ($.fn.DataTable.isDataTable(this)) {
+                $(this).DataTable().destroy();
+            }
+        });
+        
+        // Initialize tables with new configuration
+        var tables = $('.table').DataTable({
+            pageLength: 10,
+            lengthChange: false,
+            responsive: {
+                details: {
+                    type: 'column',
+                    target: 'tr'
+                }
+            },
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            processing: true,
+            deferRender: true,
+            autoWidth: false,
+            dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+                 "<'row'<'col-sm-12'tr>>" +
+                 "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            buttons: [
+                {
+                    extend: 'collection',
+                    className: 'btn btn-primary dropdown-toggle me-2',
+                    text: '<i class="fas fa-download me-1"></i> Export',
+                    buttons: [
+                        {
+                            extend: 'csv',
+                            className: 'dropdown-item',
+                            text: '<i class="fas fa-file-csv me-1"></i> CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            className: 'dropdown-item',
+                            text: '<i class="fas fa-file-excel me-1"></i> Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            className: 'dropdown-item',
+                            text: '<i class="fas fa-file-pdf me-1"></i> PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                    ]
+                },
+                {
+                    text: '<i class="fas fa-sync-alt"></i>',
+                    className: 'btn btn-light',
+                    action: function (e, dt, node, config) {
+                        dt.ajax.reload();
+                    }
+                }
+            ],
+            language: {
+                search: "",
+                searchPlaceholder: "Search warehouse receipts...",
+                processing: '<div class="loading-spinner"></div>',
+                info: "_START_ to _END_ of _TOTAL_ receipts",
+                infoEmpty: "No receipts available",
+                zeroRecords: '<div class="text-center p-4"><i class="fas fa-box fa-3x text-light mb-3"></i><p class="text-muted">No matching receipts found</p></div>',
+                select: {
+                    rows: {
+                        _: "%d rows selected",
+                        0: "Click a row to select it",
+                        1: "1 row selected"
+                    }
+                },
+                paginate: {
+                    first: '<i class="fas fa-angle-double-left"></i>',
+                    previous: '<i class="fas fa-angle-left"></i>',
+                    next: '<i class="fas fa-angle-right"></i>',
+                    last: '<i class="fas fa-angle-double-right"></i>'
+                }
+            },
+            drawCallback: function(settings) {
+                // Add fade-in animation to newly loaded rows
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                
+                $(rows).css({opacity: 0}).each(function(index) {
+                    $(this).delay(index * 50).animate({
+                        opacity: 1,
+                        transform: 'translateY(0)'
+                    }, 300);
+                });
+
+                // Update bulk actions visibility
+                var selectedRows = api.rows({selected: true}).count();
+                $('.bulk-actions')[selectedRows > 0 ? 'removeClass' : 'addClass']('d-none');
+
+                // Enhance mobile responsiveness
+                if (window.innerWidth < 768) {
+                    $('.dataTables_scrollBody').css('max-height', '60vh');
+                }
+            },
+            initComplete: function(settings, json) {
+                var api = this.api();
+                var table = this;
+
+                // Add custom classes for styling
+                $('.dataTables_wrapper')
+                    .addClass('modern-datatable')
+                    .addClass('bg-white rounded shadow-sm p-3');
+
+                // Add bulk actions toolbar
+                if (!$('.bulk-actions').length) {
+                    var bulkActionsHtml = `
+                        <div class="bulk-actions d-none mb-3">
+                            <div class="d-flex align-items-center bg-light p-3 rounded">
+                                <span class="me-3 text-muted">
+                                    <i class="fas fa-check-square me-1"></i>
+                                    <span class="selected-count">0</span> selected
+                                </span>
+                                <button class="btn btn-sm btn-primary me-2">
+                                    <i class="fas fa-cog me-1"></i> Process
+                                </button>
+                                <button class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    $(bulkActionsHtml).insertBefore(table);
+                }
+
+                // Handle bulk actions
+                $('.bulk-actions .btn-primary').on('click', function() {
+                    var selectedData = api.rows({selected: true}).data();
+                    // Handle processing selected rows
+                    console.log('Processing', selectedData.length, 'rows');
+                });
+
+                $('.bulk-actions .btn-danger').on('click', function() {
+                    var selectedData = api.rows({selected: true}).data();
+                    // Handle deleting selected rows
+                    console.log('Deleting', selectedData.length, 'rows');
+                });
+
+                // Update selected count
+                api.on('select deselect', function() {
+                    var selectedRows = api.rows({selected: true}).count();
+                    $('.selected-count').text(selectedRows);
+                });
+            }
+        });
+
+        // Add smooth scrolling for pagination clicks
+        $(document).on('click', '.paginate_button', function(e) {
+            if (!$(this).hasClass('disabled')) {
+                $('html, body').animate({
+                    scrollTop: $('.table-responsive').offset().top - 20
+                }, 300);
+            }
+        });
+
+        // Handle window resize
+        var resizeTimer;
+        $(window).on('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                tables.columns.adjust();
+            }, 250);
+        });
+    });
+  </script>
+  {% endblock extra_js %}
+
+</body>
+</html>
